@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
+<?php
 
 /**
  * Contao Open Source CMS
@@ -28,4 +28,16 @@
  */
 
 $GLOBALS['BE_FFL']['multiColumnWizard'] = 'MultiColumnWizard';
-$GLOBALS['TL_FFL']['multiColumnWizard'] = 'MultiColumnWizard';
+// $GLOBALS['TL_FFL']['multiColumnWizard'] = 'MultiColumnWizard';
+
+/**
+ * Hooks
+ */
+$GLOBALS['TL_HOOKS']['loadDataContainer'][] = array('MultiColumnWizardHelper', 'supportModalSelector');
+$GLOBALS['TL_HOOKS']['initializeSystem'][] = array('MultiColumnWizardHelper', 'changeAjaxPostActions');
+$GLOBALS['TL_HOOKS']['executePostActions'][] = array('MultiColumnWizardHelper', 'executePostActions');
+
+if (TL_MODE == 'BE')
+{
+    $GLOBALS['TL_HOOKS']['parseTemplate'][] = array('MultiColumnWizardHelper', 'addScriptsAndStyles');
+}
